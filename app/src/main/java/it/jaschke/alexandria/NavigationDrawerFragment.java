@@ -166,7 +166,7 @@ public class NavigationDrawerFragment extends Fragment {
                 }
 
                 // hide the soft keyboard when the navigation drawer is opened
-                hideKeyboard();
+                MainActivity.hideKeyboard(getActivity());
 
                 if (!mUserLearnedDrawer) {
                     // The user manually opened the drawer; store this flag to prevent auto-showing
@@ -265,12 +265,6 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }
-    }
-
-    private void hideKeyboard() {
-        InputMethodManager imm =
-                (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
     }
 
     /**
