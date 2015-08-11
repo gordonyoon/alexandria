@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         fragmentManager.beginTransaction()
                 .replace(R.id.container, nextFragment)
-                .addToBackStack((String) title)
+                .addToBackStack(nextFragment.getClass().getName())
                 .commit();
     }
 
@@ -173,10 +173,21 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() < 2) {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() < 2) {
             finish();
+        } else if (navigationDrawerFragment != null) {
+            // select the correct item in the navigation drawer when back is pressed
+            String prevName = manager.getBackStackEntryAt(manager.getBackStackEntryCount() - 2).getName();
+            if (prevName.equals(ListOfBooks.class.getName())) {
+                navigationDrawerFragment.setItemChecked(0);
+            } else if (prevName.equals(AddBook.class.getName())) {
+                navigationDrawerFragment.setItemChecked(1);
+            } else if (prevName.equals(About.class.getName())) {
+                navigationDrawerFragment.setItemChecked(2);
+            }
+            super.onBackPressed();
         }
-        super.onBackPressed();
     }
 
 

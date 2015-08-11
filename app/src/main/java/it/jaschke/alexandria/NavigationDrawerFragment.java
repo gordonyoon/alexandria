@@ -112,7 +112,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.scan),
                         getString(R.string.about),
                 }));
-        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+        setItemChecked(mCurrentSelectedPosition);
         return mDrawerListView;
     }
 
@@ -204,10 +204,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         if (position != mCurrentSelectedPosition) {  // prevent recreation of current fragment
-            mCurrentSelectedPosition = position;
-            if (mDrawerListView != null) {
-                mDrawerListView.setItemChecked(position, true);
-            }
+            setItemChecked(position);
             if (mCallbacks != null) {
                 mCallbacks.onNavigationDrawerItemSelected(position);
             }
@@ -261,6 +258,13 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setItemChecked(int position) {
+        mCurrentSelectedPosition = position;
+        if (mDrawerListView != null) {
+            mDrawerListView.setItemChecked(position, true);
+        }
     }
 
     private void hideKeyboard() {
