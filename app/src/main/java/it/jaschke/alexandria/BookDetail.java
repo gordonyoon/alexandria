@@ -1,8 +1,10 @@
 package it.jaschke.alexandria;
 
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -59,7 +61,19 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
                 bookIntent.putExtra(BookService.EAN, ean);
                 bookIntent.setAction(BookService.DELETE_BOOK);
                 getActivity().startService(bookIntent);
-                getActivity().getSupportFragmentManager().popBackStack();
+
+                // ensure that we return to ListOfBooks AFTER the item is deleted
+                getActivity().getContentResolver().registerContentObserver(
+                        AlexandriaContract.BookEntry.buildBookUri(Long.parseLong(ean)),
+                        false,
+                        new ContentObserver(new Handler(getActivity().getMainLooper())) {
+                            @Override
+                            public void onChange(boolean selfChange) {
+                                super.onChange(selfChange);
+                                getActivity().getSupportFragmentManager().popBackStack();
+                                getActivity().getContentResolver().unregisterContentObserver(this);
+                            }
+                        });
             }
         });
         return rootView;
