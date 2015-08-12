@@ -38,8 +38,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_below="@+id/fullBookTitle"
                     android:layout_alignLeft="@+id/fullBookTitle"
-                    android:layout_alignStart="@+id/fullBookTitle"
-                    android:src="@drawable/ic_launcher"/>
+                    android:layout_alignStart="@+id/fullBookTitle"/>
 
                 <TextView
                     android:layout_width="wrap_content"
