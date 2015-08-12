@@ -1,7 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <integer name="ean_size">13</integer>
-    <integer name="ean_width">8</integer>
+    <integer name="ean_width">11</integer>
     <dimen name="head_line">24sp</dimen>
     <dimen name="small_fontsize">12sp</dimen>
 
