@@ -91,6 +91,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     public void setTitle(int titleId) {
         title = getString(titleId);
+        restoreActionBar();
     }
 
     public void restoreActionBar() {
