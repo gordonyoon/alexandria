@@ -118,9 +118,12 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             }
         });
 
-        if(savedInstanceState!=null){
-            ean.setText(savedInstanceState.getString(EAN_CONTENT));
-            ean.setHint("");
+        if(savedInstanceState!=null) {
+            String eanContent = savedInstanceState.getString(EAN_CONTENT);
+            if (!eanContent.isEmpty()) {
+                ean.setText(savedInstanceState.getString(EAN_CONTENT));
+                ean.setHint("");
+            }
         }
 
         return rootView;
