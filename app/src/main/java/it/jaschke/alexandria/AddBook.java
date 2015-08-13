@@ -111,6 +111,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
             @Override
             public void onClick(View view) {
                 ean.setText("");
+                clearFields();
             }
         });
 
