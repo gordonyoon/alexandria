@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="it.jaschke.alexandria.AddBook">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="it.jaschke.alexandria.AddBook">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -13,7 +13,6 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
         android:layout_weight="1"
-
         android:orientation="horizontal">
 
         <LinearLayout
@@ -25,22 +24,22 @@
 
             <EditText
                 android:id="@+id/ean"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:hint="@string/input_hint"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="@integer/ean_size"
                 android:maxLines="1"
-                android:minEms="@integer/ean_width"
                 android:paddingRight="20dp"
-                android:saveEnabled="true" />
+                android:saveEnabled="true"/>
 
             <Button
                 android:id="@+id/scan_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/scan_button" />
+                android:text="@string/scan_button"/>
 
         </LinearLayout>
 
@@ -55,7 +54,7 @@
             android:paddingRight="20dp"
             android:textIsSelectable="true"
             android:textSize="@dimen/head_line"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/bookSubTitle"
@@ -66,7 +65,7 @@
             android:layout_below="@id/bookTitle"
             android:layout_marginTop="10dp"
             android:ellipsize="end"
-            android:maxLines="3" />
+            android:maxLines="3"/>
 
         <ImageView
             android:id="@+id/bookCover"
@@ -77,7 +76,7 @@
             android:layout_below="@id/bookSubTitle"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:contentDescription="@string/book_cover" />
+            android:contentDescription="@string/book_cover"/>
 
         <TextView
             android:id="@+id/categories"
@@ -85,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/eancontainer"
             android:layout_alignStart="@id/eancontainer"
-            android:layout_below="@id/bookCover" />
+            android:layout_below="@id/bookCover"/>
 
         <TextView
             android:id="@+id/authors"
@@ -95,7 +94,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/bookCover"
             android:gravity="end"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -110,8 +109,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_action_discard"
+            android:drawableStart="@drawable/ic_action_discard"
             android:text="@string/cancel_button"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
         <Button
             android:id="@+id/save_button"
@@ -121,8 +121,9 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_action_accept"
+            android:drawableStart="@drawable/ic_action_accept"
             android:text="@string/ok_button"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
 
     </LinearLayout>
 </LinearLayout>
