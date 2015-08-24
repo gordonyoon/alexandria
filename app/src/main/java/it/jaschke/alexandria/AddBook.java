@@ -30,9 +30,11 @@ import it.jaschke.alexandria.services.DownloadImage;
 public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "INTENT_TO_SCAN_ACTIVITY";
     private EditText ean;
+    private String mCurrentEan = "";
     private final int LOADER_ID = 1;
     private View rootView;
     private final String EAN_CONTENT="eanContent";
+    private final String CURRENT_EAN="currentEan";
 
     private static final int REQUEST_SCAN = 1;
     public static final String KEY_EAN = "eanKey";
@@ -56,6 +58,9 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         super.onSaveInstanceState(outState);
         if(ean!=null) {
             outState.putString(EAN_CONTENT, ean.getText().toString());
+        }
+        if (mCurrentEan != null && !mCurrentEan.isEmpty()) {
+            outState.putString(CURRENT_EAN, mCurrentEan);
         }
     }
 
@@ -118,10 +123,12 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         rootView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent bookIntent = new Intent(getActivity(), BookService.class);
-                bookIntent.putExtra(BookService.EAN, ean.getText().toString());
-                bookIntent.setAction(BookService.DELETE_BOOK);
-                getActivity().startService(bookIntent);
+                if (mCurrentEan != null && !mCurrentEan.isEmpty()) {
+                    Intent bookIntent = new Intent(getActivity(), BookService.class);
+                    bookIntent.putExtra(BookService.EAN, mCurrentEan);
+                    bookIntent.setAction(BookService.DELETE_BOOK);
+                    getActivity().startService(bookIntent);
+                }
                 ean.setText("");
                 clearFields();
             }
@@ -130,8 +137,12 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if(savedInstanceState!=null) {
             String eanContent = savedInstanceState.getString(EAN_CONTENT);
             if (eanContent != null && !eanContent.isEmpty()) {
-                ean.setText(savedInstanceState.getString(EAN_CONTENT));
+                ean.setText(eanContent);
                 ean.setHint("");
+            }
+            String currentEan = savedInstanceState.getString(EAN_CONTENT);
+            if (mCurrentEan != null && !mCurrentEan.isEmpty()) {
+                mCurrentEan = currentEan;
             }
         }
 
@@ -212,6 +223,8 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
 
         rootView.findViewById(R.id.save_button).setVisibility(View.VISIBLE);
         rootView.findViewById(R.id.delete_button).setVisibility(View.VISIBLE);
+
+        mCurrentEan = ean.getText().toString();
     }
 
     @Override
@@ -220,6 +233,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
     }
 
     private void clearFields(){
+        mCurrentEan = "";
         ((TextView) rootView.findViewById(R.id.bookTitle)).setText("");
         ((TextView) rootView.findViewById(R.id.bookSubTitle)).setText("");
         ((TextView) rootView.findViewById(R.id.authors)).setText("");
